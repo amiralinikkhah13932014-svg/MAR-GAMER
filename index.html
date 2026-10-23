@@ -3,129 +3,41 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="MAR GAMER؛ مرکز دانلود بازی‌های ویندوزی، معرفی بازی‌ها و لینک دانلود.">
-  <meta name="theme-color" content="#10131b">
-  <title>MAR GAMER | دانلود بازی‌های ویندوز</title>
+  <meta name="description" content="MAR GAMER؛ معرفی بازی‌های کامپیوتر با لینک‌های رسمی دریافت.">
+  <title>MAR GAMER | بازی‌های کامپیوتر</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="site-header">
-    <a class="brand" href="#" aria-label="صفحه اصلی">
-      <span class="brand-mark">G</span>
-      <span class="brand-name">MAR GAMER</span>
-    </a>
-    <nav class="nav">
-      <a href="#games">بازی‌ها</a>
-      <a href="#about">درباره سایت</a>
-      <a href="#submit">ارسال بازی</a>
-    </nav>
-    <a class="header-button" href="#games">دیدن بازی‌ها</a>
+  <header class="header">
+    <a class="brand" href="#"><span class="mark">M</span><span>MAR GAMER<small>بازی‌های کامپیوتر</small></span></a>
+    <nav><a href="#games">بازی‌ها</a><a href="#about">درباره ما</a></nav>
   </header>
-
   <main>
-    <section class="hero">
-      <div class="hero-copy">
-        <span class="eyebrow"><span class="dot"></span> مخصوص گیمرهای ویندوز</span>
-        <h1>دنیای بازی‌هات<br><span>اینجاست.</span></h1>
-        <p>بازی‌های مستقل و جذاب ویندوز را پیدا کن، درباره‌شان بخوان و با چند کلیک دانلود کن.</p>
-        <div class="hero-actions">
-          <a class="button primary" href="#games">گشتن بین بازی‌ها <span aria-hidden="true">←</span></a>
-          <a class="button secondary" href="#about">درباره سایت</a>
+    <section class="intro">
+      <h1>به MAR GAMER خوش آمدی</h1>
+      <p>بازی مورد علاقه‌ات را پیدا کن و از منبع رسمی دریافتش کن.</p>
+      <a class="button" href="#games">مشاهده بازی‌ها</a>
+    </section>
+    <section id="games">
+      <div class="heading"><h2>بازی‌ها</h2><span id="count">۰ بازی</span></div>
+      <div class="tools">
+        <input id="search" type="search" placeholder="جست‌وجوی بازی..." aria-label="جست‌وجوی بازی">
+        <div class="filters">
+          <button class="active" data-filter="همه">همه</button>
+          <button data-filter="استراتژیک">استراتژیک</button>
+          <button data-filter="اکشن">اکشن</button>
+          <button data-filter="مبارزه‌ای">مبارزه‌ای</button>
+          <button data-filter="جنگی">جنگی</button>
         </div>
-        <div class="hero-note"><span class="check">✓</span> ساده، سبک و آماده انتشار رایگان</div>
       </div>
-      <div class="hero-art" aria-label="تصویر تزئینی گیمینگ">
-        <div class="art-glow"></div>
-        <div class="screen screen-back"></div>
-        <div class="screen screen-front">
-          <div class="screen-top"><i></i><i></i><i></i><span>GAME LIBRARY</span></div>
-          <div class="pixel-logo">MAR<span>_</span></div>
-          <div class="screen-bars"><b></b><b></b><b></b></div>
-          <div class="screen-caption">YOUR NEXT ADVENTURE</div>
-        </div>
-        <div class="floating-chip chip-one">WINDOWS</div>
-        <div class="floating-chip chip-two">FREE GAMES</div>
-        <div class="hero-orbit"></div>
-      </div>
+      <p class="note">وضعیت رایگان یا پولی هر بازی مشخص شده است. دکمه‌ها به صفحه رسمی سازنده یا فروشگاه بازی می‌روند.</p>
+      <div class="grid" id="grid"></div>
+      <p id="empty" hidden>بازی‌ای پیدا نشد.</p>
     </section>
-
-    <section class="stats" aria-label="ویژگی‌های سایت">
-      <div><strong>ویندوز</strong><span>ویژه رایانه‌های شخصی</span></div>
-      <div><strong>دانلود آسان</strong><span>دسترسی سریع به فایل‌ها</span></div>
-      <div><strong>رایگان</strong><span>شروع بدون هزینه میزبانی</span></div>
-    </section>
-
-    <section class="games-section" id="games">
-      <div class="section-heading">
-        <div>
-          <span class="eyebrow">کتابخانه بازی‌ها</span>
-          <h2>بازی‌های پیشنهادی</h2>
-          <p>این کارت‌ها نمونه‌اند؛ بعداً اسم، عکس و لینک دانلود بازی‌های خودت را جایگزین کن.</p>
-        </div>
-        <label class="search-box">
-          <span aria-hidden="true">⌕</span>
-          <input id="searchInput" type="search" placeholder="جست‌وجوی بازی..." aria-label="جست‌وجوی بازی">
-        </label>
-      </div>
-
-      <div class="filters" role="group" aria-label="فیلتر بازی‌ها">
-        <button class="filter active" data-filter="all">همه بازی‌ها</button>
-        <button class="filter" data-filter="action">اکشن</button>
-        <button class="filter" data-filter="puzzle">فکری</button>
-        <button class="filter" data-filter="casual">ساده و سرگرم‌کننده</button>
-      </div>
-
-      <div class="game-grid" id="gameGrid">
-        <article class="game-card" data-category="casual" data-search="coin clicker کلیکی سکه">
-          <div class="game-cover cover-coin"><span class="cover-tag">نمونه</span><div class="coin-symbol">₵</div><span class="cover-title">COIN<br>CLICKER</span></div>
-          <div class="game-info">
-            <div class="game-title-row"><h3>CoinClicker</h3><span class="platform">Windows</span></div>
-            <p>یک بازی کلیکی ساده؛ برای جمع‌کردن سکه‌ها کلیک کن.</p>
-            <div class="game-meta"><span>🎮 سرگرم‌کننده</span><span>نسخه: 1.0</span></div>
-            <a class="download-button disabled" href="#submit" aria-label="لینک دانلود CoinClicker هنوز تنظیم نشده">لینک دانلود را تنظیم کن <span>↓</span></a>
-          </div>
-        </article>
-
-        <article class="game-card" data-category="puzzle" data-search="ali game center بازی فکری حدس عدد">
-          <div class="game-cover cover-puzzle"><span class="cover-tag">نمونه</span><div class="puzzle-symbol">?</div><span class="cover-title">ALI GAME<br>CENTER</span></div>
-          <div class="game-info">
-            <div class="game-title-row"><h3>ALI GAME CENTER</h3><span class="platform">Windows</span></div>
-            <p>مجموعه‌ای از بازی‌های کوچک؛ حدس عدد، سنگ‌کاغذ‌قیچی و موارد دیگر.</p>
-            <div class="game-meta"><span>🧩 چند بازی</span><span>نسخه: 1.0</span></div>
-            <a class="download-button disabled" href="#submit" aria-label="لینک دانلود ALI GAME CENTER هنوز تنظیم نشده">لینک دانلود را تنظیم کن <span>↓</span></a>
-          </div>
-        </article>
-
-        <article class="game-card" data-category="action" data-search="cyber hacker zero day هکری ماجراجویی">
-          <div class="game-cover cover-cyber"><span class="cover-tag">به‌زودی</span><div class="cyber-symbol">⌘</div><span class="cover-title">CYBER<br>ZERO DAY</span></div>
-          <div class="game-info">
-            <div class="game-title-row"><h3>Cyber: Zero Day</h3><span class="platform">Windows</span></div>
-            <p>جایگاه آماده برای معرفی یکی از پروژه‌های آینده‌ات.</p>
-            <div class="game-meta"><span>💻 ماجراجویی</span><span>در حال ساخت</span></div>
-            <a class="download-button disabled" href="#submit" aria-label="این بازی هنوز منتشر نشده">هنوز منتشر نشده <span>↗</span></a>
-          </div>
-        </article>
-      </div>
-      <p class="empty-state" id="emptyState" hidden>بازی‌ای با این عبارت پیدا نشد. عبارت دیگری را امتحان کن.</p>
-    </section>
-
-    <section class="submit-banner" id="submit">
-      <div class="submit-icon">＋</div>
-      <div><span class="eyebrow">قدم بعدی</span><h2>بازی خودت را منتشر کن</h2><p>وقتی فایل EXE یا ZIP آماده شد، لینک دانلودش را در کارت مربوطه قرار بده.</p></div>
-      <a class="button secondary" href="#about">روش کار را ببین</a>
-    </section>
-
-    <section class="about-section" id="about">
-      <div><span class="eyebrow">درباره پروژه</span><h2>یک خانه برای بازی‌های تو.</h2></div>
-      <p>این نسخه اولیه است و بدون کتابخانه اضافی ساخته شده؛ بنابراین سبک است و روی Chrome و سایر مرورگرهای جدید باز می‌شود. برای انتشار عمومی، فقط بازی‌هایی را قرار بده که خودت ساخته‌ای یا اجازه توزیع آن‌ها را داری.</p>
-    </section>
+    <section id="about" class="about"><h2>درباره MAR GAMER</h2><p>در این سایت بازی‌های کامپیوتر معرفی می‌شوند. فقط مدیر سایت می‌تواند بازی‌ها و اطلاعات آن‌ها را از طریق فایل‌های پروژه تغییر دهد.</p></section>
   </main>
-
-  <footer class="site-footer">
-    <a class="brand" href="#"><span class="brand-mark">G</span><span class="brand-name">MAR GAMER</span></a>
-    <span>© <span id="year"></span> MAR GAMER — ساخته‌شده برای گیمرها</span>
-    <a href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;">بازگشت به بالا ↑</a>
-  </footer>
+  <footer>© <span id="year"></span> MAR GAMER</footer>
   <script src="script.js"></script>
 </body>
 </html>
+
