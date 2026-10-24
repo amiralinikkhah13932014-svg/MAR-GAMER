@@ -3,7 +3,7 @@ const games = [
   {
     title: "Stronghold Crusader HD",
     category: "استراتژیک",
-    price: "پولی",
+    price: "رایگان",
     initials: "SC",
     description: "بازی استراتژیک کلاسیک",
     image: "https://cdn.akamai.steamstatic.com/steam/apps/40970/header.jpg",
