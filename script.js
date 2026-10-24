@@ -6,6 +6,7 @@ const games = [
     price: "پولی",
     initials: "SC",
     description: "بازی استراتژیک کلاسیک",
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/40970/header.jpg",
     link: "https://drive.google.com/uc?export=download&id=1pEHVblDnlj8ZJiyJeboJgYAjoItdoD2B",
     download: true
   },
@@ -15,6 +16,7 @@ const games = [
     price: "رایگان",
     initials: "CS2",
     description: "بازی تیراندازی رقابتی",
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/730/header.jpg",
     link: "https://store.steampowered.com/app/730/CounterStrike_2/"
   },
   {
@@ -23,6 +25,7 @@ const games = [
     price: "رایگان",
     initials: "WT",
     description: "نبردهای زمینی، هوایی و دریایی",
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/236390/header.jpg",
     link: "https://warthunder.com/"
   },
   {
@@ -31,6 +34,7 @@ const games = [
     price: "رایگان",
     initials: "BH",
     description: "بازی مبارزه‌ای چندنفره",
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/291550/header.jpg",
     link: "https://store.steampowered.com/app/291550/Brawlhalla/"
   }
 ];
@@ -63,8 +67,17 @@ function render() {
 
   grid.innerHTML = visibleGames.map(game => `
     <article class="game-card">
-      <div class="game-cover" aria-hidden="true">
-        <span>${escapeHTML(game.initials)}</span>
+      <div class="game-cover">
+        <img
+          class="game-image"
+          src="${escapeHTML(game.image)}"
+          alt="تصویر بازی ${escapeHTML(game.title)}"
+          loading="lazy"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+        >
+        <span class="game-fallback" style="display:none">
+          ${escapeHTML(game.initials)}
+        </span>
       </div>
 
       <div class="game-info">
@@ -72,7 +85,6 @@ function render() {
           <span class="game-category">
             ${escapeHTML(game.category)}
           </span>
-
           <span class="game-price ${
             game.price === "رایگان" ? "free" : "paid"
           }">
@@ -93,17 +105,9 @@ function render() {
     </article>
   `).join("");
 
-  if (count) {
-    count.textContent = `${visibleGames.length} بازی`;
-  }
-
-  if (empty) {
-    empty.hidden = visibleGames.length > 0;
-  }
+  if (count) count.textContent = `${visibleGames.length} بازی`;
+  if (empty) empty.hidden = visibleGames.length > 0;
 }
 
-if (search) {
-  search.addEventListener("input", render);
-}
-
+if (search) search.addEventListener("input", render);
 render();
