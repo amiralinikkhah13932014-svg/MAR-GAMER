@@ -1,43 +1,116 @@
-<!doctype html>
-<html lang="fa" dir="rtl">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="MAR GAMER؛ معرفی بازی‌های کامپیوتر با لینک‌های رسمی دریافت.">
-  <title>MAR GAMER | بازی‌های کامپیوتر</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <header class="header">
-    <a class="brand" href="#"><span class="mark">M</span><span>MAR GAMER<small>بازی‌های کامپیوتر</small></span></a>
-    <nav><a href="#games">بازی‌ها</a><a href="#about">درباره ما</a></nav>
-  </header>
-  <main>
-    <section class="intro">
-      <h1>به MAR GAMER خوش آمدی</h1>
-      <p>بازی مورد علاقه‌ات را پیدا کن و از منبع رسمی دریافتش کن.</p>
-      <a class="button" href="#games">مشاهده بازی‌ها</a>
-    </section>
-    <section id="games">
-      <div class="heading"><h2>بازی‌ها</h2><span id="count">۰ بازی</span></div>
-      <div class="tools">
-        <input id="search" type="search" placeholder="جست‌وجوی بازی..." aria-label="جست‌وجوی بازی">
-        <div class="filters">
-          <button class="active" data-filter="همه">همه</button>
-          <button data-filter="استراتژیک">استراتژیک</button>
-          <button data-filter="اکشن">اکشن</button>
-          <button data-filter="مبارزه‌ای">مبارزه‌ای</button>
-          <button data-filter="جنگی">جنگی</button>
-        </div>
-      </div>
-      <p class="note">وضعیت رایگان یا پولی هر بازی مشخص شده است. دکمه‌ها به صفحه رسمی سازنده یا فروشگاه بازی می‌روند.</p>
-      <div class="grid" id="grid"></div>
-      <p id="empty" hidden>بازی‌ای پیدا نشد.</p>
-    </section>
-    <section id="about" class="about"><h2>درباره MAR GAMER</h2><p>در این سایت بازی‌های کامپیوتر معرفی می‌شوند. فقط مدیر سایت می‌تواند بازی‌ها و اطلاعات آن‌ها را از طریق فایل‌های پروژه تغییر دهد.</p></section>
-  </main>
-  <footer>© <span id="year"></span> MAR GAMER</footer>
-  <script src="script.js"></script>
-</body>
-</html>
 
+const games = [
+  {
+    title: "Stronghold Crusader HD",
+    category: "استراتژیک",
+    price: "رایگان",
+    initials: "SC",
+    description: "بازی استراتژیک کلاسیک",
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/40970/header.jpg",
+    link: "https://drive.google.com/uc?export=download&id=1pEHVblDnlj8ZJiyJeboJgYAjoItdoD2B",
+    download: true
+  },
+  {
+    title: "Counter-Strike 2",
+    category: "اکشن",
+    price: "رایگان",
+    initials: "CS2",
+    description: "بازی تیراندازی رقابتی",
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/730/header.jpg",
+    link: "https://store.steampowered.com/app/730/CounterStrike_2/"
+  },
+  {
+    title: "War Thunder",
+    category: "جنگی",
+    price: "رایگان",
+    initials: "WT",
+    description: "نبردهای زمینی، هوایی و دریایی",
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/236390/header.jpg",
+    link: "https://warthunder.com/"
+  },
+  {
+    title: "Brawlhalla",
+    category: "مبارزه‌ای",
+    price: "رایگان",
+    initials: "BH",
+    description: "بازی مبارزه‌ای چندنفره",
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/291550/header.jpg",
+    link: "https://store.steampowered.com/app/291550/Brawlhalla/"
+  }
+];
+
+const grid = document.getElementById("grid");
+const search = document.getElementById("search");
+const count = document.getElementById("count");
+const empty = document.getElementById("empty");
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[char]);
+}
+
+function render() {
+  if (!grid) return;
+
+  const query = (search?.value || "").trim().toLowerCase();
+
+  const visibleGames = games.filter(game => {
+    const text = `${game.title} ${game.category} ${game.description}`;
+    return text.toLowerCase().includes(query);
+  });
+
+  grid.innerHTML = visibleGames.map(game => `
+    <article class="game-card">
+      <div class="game-cover">
+        <img
+          class="game-image"
+          src="${escapeHTML(game.image)}"
+          alt="تصویر بازی ${escapeHTML(game.title)}"
+          loading="lazy"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+        >
+        <span class="game-fallback" style="display:none">
+          ${escapeHTML(game.initials)}
+        </span>
+      </div>
+
+      <div class="game-info">
+        <div class="game-meta">
+          <span class="game-category">
+            ${escapeHTML(game.category)}
+          </span>
+          <span class="game-price free">رایگان</span>
+        </div>
+
+        <h2>${escapeHTML(game.title)}</h2>
+        <p>${escapeHTML(game.description)}</p>
+
+        <a class="download-button"
+           href="${escapeHTML(game.link)}"
+           target="_blank"
+           rel="noopener noreferrer">
+          ${game.download ? "دانلود بازی" : "صفحه بازی"}
+        </a>
+      </div>
+    </article>
+  `).join("");
+
+  if (count) {
+    count.textContent = `${visibleGames.length} بازی`;
+  }
+
+  if (empty) {
+    empty.hidden = visibleGames.length > 0;
+  }
+}
+
+if (search) {
+  search.addEventListener("input", render);
+}
+
+render();
