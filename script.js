@@ -43,6 +43,9 @@ const grid = document.getElementById("grid");
 const search = document.getElementById("search");
 const count = document.getElementById("count");
 const empty = document.getElementById("empty");
+const filterButtons = document.querySelectorAll("[data-filter]");
+
+let activeFilter = "همه";
 
 function escapeHTML(value) {
   return String(value).replace(/[&<>"']/g, char => ({
@@ -57,13 +60,21 @@ function escapeHTML(value) {
 function render() {
   if (!grid) return;
 
-  const query = (search?.value || "").trim().toLowerCase();
+  const query = (search?.value || "").trim().toLocaleLowerCase("fa");
 
-  const visibleGames = games.filter(game =>
-    `${game.title} ${game.category} ${game.description}`
-      .toLowerCase()
-      .includes(query)
-  );
+  const visibleGames = games.filter(game => {
+    const matchesFilter =
+      activeFilter === "همه" ||
+      activeFilter === "رایگان" ||
+      game.category === activeFilter;
+
+    const searchableText =
+      `${game.title} ${game.category} ${game.description}`.toLocaleLowerCase("fa");
+
+    const matchesSearch = searchableText.includes(query);
+
+    return matchesFilter && matchesSearch;
+  });
 
   grid.innerHTML = visibleGames.map(game => `
     <article class="game-card">
@@ -82,14 +93,8 @@ function render() {
 
       <div class="game-info">
         <div class="game-meta">
-          <span class="game-category">
-            ${escapeHTML(game.category)}
-          </span>
-          <span class="game-price ${
-            game.price === "رایگان" ? "free" : "paid"
-          }">
-            ${escapeHTML(game.price)}
-          </span>
+          <span class="game-category">${escapeHTML(game.category)}</span>
+          <span class="game-price free">رایگان</span>
         </div>
 
         <h2>${escapeHTML(game.title)}</h2>
@@ -105,9 +110,38 @@ function render() {
     </article>
   `).join("");
 
-  if (count) count.textContent = `${visibleGames.length} بازی`;
-  if (empty) empty.hidden = visibleGames.length > 0;
+  if (count) {
+    count.textContent = `${visibleGames.length} بازی`;
+  }
+
+  if (empty) {
+    empty.hidden = visibleGames.length > 0;
+  }
 }
 
-if (search) search.addEventListener("input", render);
+filterButtons.forEach(button => {
+  button.addEventListener("click", () => {
+    activeFilter = button.dataset.filter || "همه";
+
+    filterButtons.forEach(item => {
+      const isActive = item === button;
+      item.classList.toggle("active", isActive);
+      item.setAttribute("aria-pressed", String(isActive));
+    });
+
+    render();
+  });
+});
+
+if (search) {
+  search.addEventListener("input", render);
+}
+
+filterButtons.forEach(button => {
+  button.setAttribute(
+    "aria-pressed",
+    String((button.dataset.filter || "همه") === activeFilter)
+  );
+});
+
 render();
