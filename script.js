@@ -43,9 +43,6 @@ const grid = document.getElementById("grid");
 const search = document.getElementById("search");
 const count = document.getElementById("count");
 const empty = document.getElementById("empty");
-const filterButtons = document.querySelectorAll("[data-filter]");
-
-let activeFilter = "همه";
 
 function escapeHTML(value) {
   return String(value).replace(/[&<>"']/g, char => ({
@@ -60,20 +57,11 @@ function escapeHTML(value) {
 function render() {
   if (!grid) return;
 
-  const query = (search?.value || "").trim().toLocaleLowerCase("fa");
+  const query = (search?.value || "").trim().toLowerCase();
 
   const visibleGames = games.filter(game => {
-    const matchesFilter =
-      activeFilter === "همه" ||
-      activeFilter === "رایگان" ||
-      game.category === activeFilter;
-
-    const searchableText =
-      `${game.title} ${game.category} ${game.description}`.toLocaleLowerCase("fa");
-
-    const matchesSearch = searchableText.includes(query);
-
-    return matchesFilter && matchesSearch;
+    const text = `${game.title} ${game.category} ${game.description}`;
+    return text.toLowerCase().includes(query);
   });
 
   grid.innerHTML = visibleGames.map(game => `
@@ -94,7 +82,7 @@ function render() {
       <div class="game-info">
         <div class="game-meta">
           <span class="game-category">${escapeHTML(game.category)}</span>
-          <span class="game-price free">رایگان</span>
+          <span class="game-price free">${escapeHTML(game.price)}</span>
         </div>
 
         <h2>${escapeHTML(game.title)}</h2>
@@ -119,29 +107,8 @@ function render() {
   }
 }
 
-filterButtons.forEach(button => {
-  button.addEventListener("click", () => {
-    activeFilter = button.dataset.filter || "همه";
-
-    filterButtons.forEach(item => {
-      const isActive = item === button;
-      item.classList.toggle("active", isActive);
-      item.setAttribute("aria-pressed", String(isActive));
-    });
-
-    render();
-  });
-});
-
 if (search) {
   search.addEventListener("input", render);
 }
-
-filterButtons.forEach(button => {
-  button.setAttribute(
-    "aria-pressed",
-    String((button.dataset.filter || "همه") === activeFilter)
-  );
-});
 
 render();
